@@ -1,0 +1,28 @@
+<section>
+  <div class="row justify-content-center align-items-center vh-100 ">
+    <div class="col-6 text-center">
+      <img src="assets/logo.svg" class="w-25" alt="Logo">
+      <form class="mb-3" [formGroup]="formGroup" (ngSubmit)="signUp()">
+        <p class="mb-0">
+          <mat-form-field class="w-100" appearance="standard">
+            <mat-label>E-mail</mat-label>
+            <input matInput placeholder="E-mail" formControlName="email">
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </p>
+
+        <p class="mb-3">
+          <mat-form-field class="w-100" appearance="standard">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" placeholder="Senha" formControlName="password">
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </p>
+
+        <button class="w-50" mat-raised-button color="primary">Cadastrar</button>
+      </form>
+
+      <button class="w-50" mat-button color="accent" routerLink="/login">Login</button>
+    </div>
+  </div>
+</section>

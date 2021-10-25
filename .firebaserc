@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "social-study-85d04": {
+      "hosting": {
+        "my-app": [
+          "social-study-85d04"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "social-study-85d04"
+  }
+}

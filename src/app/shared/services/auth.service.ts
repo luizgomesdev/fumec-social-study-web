@@ -12,27 +12,35 @@ export class AuthService {
   ) {}
 
   async login(email: string, password: string) {
-    const credentials = await this.auth.signInWithEmailAndPassword(
-      email,
-      password
-    );
-    localStorage.setItem(
-      '@ss:credential',
-      JSON.stringify(credentials.credential)
-    );
+    try {
+      const credentials = await this.auth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+
+      localStorage.setItem('@ss:credential', JSON.stringify(credentials.user));
+      this.router.navigate(['dashboard']);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async signUp(email: string, password: string) {
-    const credentials = await this.auth.createUserWithEmailAndPassword(
-      email,
-      password
-    );
-    console.log(credentials);
-    localStorage.setItem(
-      '@ss:credential',
-      JSON.stringify(credentials.credential)
-    );
-    this.router.navigate(['dashboard']);
+    try {
+      const credentials = await this.auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      localStorage.setItem('@ss:credential', JSON.stringify(credentials.user));
+      this.router.navigate(['dashboard']);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getCurrentUser() {
+    const user = localStorage.getItem('@ss:credential');
+    return user ? JSON.parse(user) : null;
   }
 
   isLoggedIn() {

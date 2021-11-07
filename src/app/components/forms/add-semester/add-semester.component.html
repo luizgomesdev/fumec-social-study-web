@@ -1,0 +1,30 @@
+<div class="content">
+  <h3>Adicionar semestre</h3>
+
+  <form class="mb-3" [formGroup]="formGroup" (ngSubmit)="create()">
+
+    <p>
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Ano</mat-label>
+        <select class="w-100" matNativeControl formControlName="year" required>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+        </select>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Semestre</mat-label>
+        <select class="w-100" matNativeControl formControlName="semester" required>
+          <option value="1º Semestre">1º Semestre</option>
+          <option value="2º Semestre">2º Semestre</option>
+        </select>
+      </mat-form-field>
+    </p>
+
+    <button class="w-50 float-end" mat-raised-button color="primary">Cadastrar</button>
+  </form>
+
+</div>

@@ -7,9 +7,9 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { UnauthGuard } from './shared/guards/unauth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/entrar', pathMatch: 'full' },
   {
-    path: 'login',
+    path: 'entrar',
     component: LoginComponent,
     canActivate: [UnauthGuard],
   },

@@ -1,7 +1,6 @@
 <main class="wrapper">
   <app-sidebar (menuActiveEvent)="setMenuActive($event)"></app-sidebar>
   <div class="content p-5">
-    <!-- <router-outlet name='auth'></router-outlet> -->
-    <app-materias *ngIf="menuActive === 'materias'"></app-materias>
+    <!-- <app-materias *ngIf="menuActive === 'materias'"></app-materias> -->
   </div>
 </main>

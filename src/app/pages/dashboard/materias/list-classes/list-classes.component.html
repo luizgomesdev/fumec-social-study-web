@@ -1,0 +1,13 @@
+<section>
+  <h1 class="fw-bold">Olá, Fulano!</h1>
+  <div class="d-flex align-items-center justify-content-between mb-5">
+    <h2 *ngIf="semester" class="mb-0">{{semester.year}} {{semester.semester}}</h2>
+    <button mat-button color="accent" (click)="openDialog()">
+      Adicionar matéria <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+  <mat-list>
+    <mat-list-item *ngFor="let class of classes" class="border-bottom text-secondary"> {{ class.name }} </mat-list-item>
+  </mat-list>
+
+</section>

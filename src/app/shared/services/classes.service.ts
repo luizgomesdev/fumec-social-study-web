@@ -1,3 +1,4 @@
+import { Classes } from './../entities/classes.entity';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Injectable } from '@angular/core';
 import {
@@ -12,41 +13,38 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SemesterService {
-  private itemsCollection: AngularFirestoreCollection<Semester>;
-  items: Observable<Semester[]>;
-  userId: string = this.authService.getCurrentUser().uid;
+export class ClassesService {
+  private itemsCollection: AngularFirestoreCollection<Classes>;
+  items: Observable<Classes[]>;
 
   constructor(private afs: AngularFirestore, public authService: AuthService) {
-    this.itemsCollection = afs.collection<Semester>('semesters');
+    this.itemsCollection = afs.collection<Classes>('classes');
     this.items = this.itemsCollection.valueChanges();
   }
 
-  async create(data: Partial<Semester>) {
+  async create(data: Partial<Classes>) {
     return this.itemsCollection.add({
       ...data,
       id: uuid.v4(),
       createdAt: new Date(),
       updatedAt: new Date(),
-      userId: this.authService.getCurrentUser().uid,
     });
   }
 
-  async findOne(id: string): Promise<Semester | null> {
-    const semester = await this.itemsCollection.doc(id).ref.get();
-    return semester.data() ?? null;
+  async findOne(id: string): Promise<Classes | null> {
+    const { data } = await this.itemsCollection.doc(id).ref.get();
+    return data() ?? null;
   }
 
-  async findAll(): Promise<Semester[]> {
+  async findAll(semesterId: string): Promise<Classes[]> {
     const { docs } = await this.itemsCollection.ref
-      .where('userId', '==', this.userId)
+      .where('semesterId', '==', semesterId)
       .get();
 
     return docs.map((doc) => {
       const data = doc.data();
       return {
         ...data,
-        id: doc.id,
       };
     });
   }

@@ -1,3 +1,10 @@
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  ParamMap,
+  Router,
+} from '@angular/router';
 import { SemesterService } from 'src/app/shared/services/semester.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -10,29 +17,24 @@ import { Semester } from 'src/app/shared/entities/semesters.entity';
   styleUrls: ['./materias.component.scss'],
 })
 export class MateriasComponent implements OnInit {
-  semesters!: Semester[];
+  semesterId!: string | null;
 
   constructor(
-    public dialog: MatDialog,
-    private readonly semesterService: SemesterService
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
-    (async () => {
-      this.semesters = await this.getSemesters();
-    })();
-  }
-
-  async getSemesters() {
-    return this.semesterService.findAll();
-  }
-
-  openDialog() {
-    const ref = this.dialog.open(AddSemesterComponent);
-    ref
-      .afterClosed()
-      .subscribe(
-        async (result) => (this.semesters = await this.getSemesters())
-      );
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (this.route.firstChild) {
+          this.route.firstChild.paramMap.subscribe(
+            (params: ParamMap) => (this.semesterId = params.get('id'))
+          );
+        } else {
+          this.semesterId = null;
+        }
+      }
+    });
   }
 }

@@ -1,0 +1,17 @@
+<div class="content">
+  <h3>Adicionar matéria</h3>
+
+  <form class="mb-3" [formGroup]="formGroup" (ngSubmit)="create()">
+
+    <p>
+      <mat-form-field class="w-100" appearance="standard">
+        <mat-label>Nome da matéria</mat-label>
+        <input matInput type="text" placeholder="Matéria" formControlName="className">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+    </p>
+
+    <button class="w-50 float-end" mat-raised-button color="primary">Cadastrar</button>
+  </form>
+
+</div>

@@ -5,7 +5,11 @@ import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'materias', component: MateriasComponent, outlet: 'dashboard' },
+  {
+    path: 'materias',
+    component: MateriasComponent,
+    children: [{ path: ':id', component: MateriasComponent }],
+  },
 ];
 
 @NgModule({

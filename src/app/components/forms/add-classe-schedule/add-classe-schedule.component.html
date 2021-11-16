@@ -1,0 +1,38 @@
+<div class="content">
+    <h3>Adicionar aula</h3>
+
+    <form class="mb-3" [formGroup]="formGroup" (ngSubmit)="create()">
+
+        <p>
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Selecionar ano</mat-label>
+                <select class="w-100" matNativeControl formControlName="year" required>
+                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                </select>
+            </mat-form-field>
+        </p>
+        <p *ngIf="semesters">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Semestre</mat-label>
+                <select class="w-100" matNativeControl formControlName="semester" required>
+                    <option *ngFor="let semester of semesters" [value]="semester">{{semester}}</option>
+                </select>
+            </mat-form-field>
+        </p>
+        <p *ngIf="classes">
+            <mat-form-field class="w-100" appearance="fill">
+                <mat-label>Aulas</mat-label>
+                <select class="w-100" matNativeControl formControlName="class" required>
+                    <option *ngFor="let classe of classes" [value]="classe.id">{{classe.name}}</option>
+                </select>
+            </mat-form-field>
+        </p>
+
+        <div *ngIf="classes" class="input-group mb-3">
+            <input type='datetime-local' data-date-format="DD-MM-YYYY" formControlName="date" class="form-control" />
+        </div>
+
+        <button class="w-50 float-end" mat-raised-button color="primary">Cadastrar</button>
+    </form>
+
+</div>

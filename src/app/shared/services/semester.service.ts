@@ -32,9 +32,13 @@ export class SemesterService {
     });
   }
 
-  async findOne(id: string): Promise<Semester | null> {
-    const semester = await this.itemsCollection.doc(id).ref.get();
-    return semester.data() ?? null;
+  async findOne(id: string): Promise<Semester> {
+    const { docs } = await this.itemsCollection.ref
+      .where('id', '==', id)
+      .limit(1)
+      .get();
+
+    return docs[0].data() as Semester;
   }
 
   async findAll(): Promise<Semester[]> {
@@ -46,7 +50,6 @@ export class SemesterService {
       const data = doc.data();
       return {
         ...data,
-        id: doc.id,
       };
     });
   }

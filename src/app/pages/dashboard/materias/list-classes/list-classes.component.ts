@@ -14,7 +14,7 @@ import { ClassesService } from './../../../../shared/services/classes.service';
 })
 export class ListClassesComponent implements OnInit {
   @Input() semesterId!: string;
-  semester!: Semester;
+  semester!: Semester | null;
   classes!: Classes[];
 
   constructor(
@@ -24,10 +24,12 @@ export class ListClassesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    (async () => {
-      this.semester = (await this.getSemesterData()) ?? ({} as Semester);
-      this.classes = await this.getClasses();
-    })();
+    (async () => this.init())();
+  }
+
+  async init() {
+    this.semester = await this.getSemesterData();
+    this.classes = await this.getClasses();
   }
 
   async getSemesterData() {
@@ -35,6 +37,11 @@ export class ListClassesComponent implements OnInit {
   }
   async getClasses() {
     return this.classesService.findAll(this.semesterId);
+  }
+
+  async deleteClass(id: string) {
+    await this.classesService.delete(id);
+    await this.init();
   }
 
   openDialog() {

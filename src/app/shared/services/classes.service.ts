@@ -31,9 +31,13 @@ export class ClassesService {
     });
   }
 
-  async findOne(id: string): Promise<Classes | null> {
-    const { data } = await this.itemsCollection.doc(id).ref.get();
-    return data() ?? null;
+  async findOne(id: string): Promise<Classes> {
+    const { docs } = await this.itemsCollection.ref
+      .where('id', '==', id)
+      .limit(1)
+      .get();
+
+    return docs[0].data() as Classes;
   }
 
   async findAll(semesterId: string): Promise<Classes[]> {
@@ -47,5 +51,10 @@ export class ClassesService {
         ...data,
       };
     });
+  }
+
+  async delete(id: string) {
+    const { docs } = await this.itemsCollection.ref.where('id', '==', id).get();
+    docs.map((doc) => doc.ref.delete());
   }
 }

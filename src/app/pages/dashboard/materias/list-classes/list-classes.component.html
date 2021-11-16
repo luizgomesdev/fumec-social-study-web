@@ -7,7 +7,12 @@
     </button>
   </div>
   <mat-list>
-    <mat-list-item *ngFor="let class of classes" class="border-bottom text-secondary"> {{ class.name }} </mat-list-item>
+    <mat-list-item *ngFor="let class of classes" class="border-bottom text-secondary">
+      <div class="d-flex justify-content-between w-100">
+        <p class="mb-0">{{ class.name }}</p>
+        <mat-icon class="pointer" (click)="deleteClass(class.id)">delete</mat-icon>
+      </div>
+    </mat-list-item>
   </mat-list>
 
 </section>

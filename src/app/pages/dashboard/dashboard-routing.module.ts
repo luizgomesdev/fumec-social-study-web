@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MateriasComponent } from './materias/materias.component';
 import { DashboardComponent } from './dashboard.component';
+import { HorariosComponent } from './horarios/horarios.component';
+import { MateriasComponent } from './materias/materias.component';
+
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -9,6 +11,11 @@ const routes: Routes = [
     path: 'materias',
     component: MateriasComponent,
     children: [{ path: ':id', component: MateriasComponent }],
+  },
+  {
+    path: 'horarios',
+    component: HorariosComponent,
+    children: [{ path: ':id', component: HorariosComponent }],
   },
 ];
 

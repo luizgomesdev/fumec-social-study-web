@@ -1,3 +1,5 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Semester } from 'src/app/shared/entities/semesters.entity';
 import { ClassSchedule } from 'src/app/shared/entities/class-schedule.entity';
 import { ClassScheduleService } from './../../../../shared/services/class-schedule.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +14,10 @@ import { ptBR } from 'date-fns/locale';
   styleUrls: ['./class-schedule.component.scss'],
 })
 export class ClassScheduleComponent implements OnInit {
+  formGroup!: FormGroup;
   classesSchedule!: ClassSchedule[];
+  classes!: ClassSchedule[];
+  semesters: Semester[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -24,8 +29,35 @@ export class ClassScheduleComponent implements OnInit {
   }
 
   async init() {
+    this.initForm({ selectedSemesterId: '' });
+
     this.classesSchedule = await this.classScheduleService.findAll();
-    console.log(this.classesSchedule);
+
+    for (const classSchedule of this.classesSchedule) {
+      if (classSchedule.semester) {
+        const index = this.semesters.findIndex(
+          (value) => value.id === classSchedule.semester?.id
+        );
+        if (index == -1) this.semesters.push(classSchedule.semester);
+      }
+    }
+
+    this.formGroup
+      .get('selectedSemesterId')
+      ?.valueChanges.subscribe(async (value) => {
+        console.log(value)
+        this.classes = this.classesSchedule.filter(
+          (data) => data.semester?.id === value
+        );
+      });
+  }
+
+  initForm(data: any) {
+    this.formGroup = new FormGroup({
+      selectedSemesterId: new FormControl(data.selectedSemesterId, [
+        Validators.required,
+      ]),
+    });
   }
 
   getDate(date: any) {
@@ -33,7 +65,7 @@ export class ClassScheduleComponent implements OnInit {
   }
 
   getHour(date: any) {
-    return format(date.seconds, "HH:mm", { locale: ptBR });
+    return format(date.seconds, 'HH:mm', { locale: ptBR });
   }
 
   openDialog() {

@@ -19,20 +19,22 @@ export class AddClasseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initForm({ className: '' });
+    this.initForm({ className: '', teacher: '' });
   }
 
   initForm(data: any) {
     this.formGroup = new FormGroup({
       className: new FormControl(data.className, [Validators.required]),
+      teacher: new FormControl(data.teacher, [Validators.required]),
     });
   }
 
   async create() {
-    const { className } = this.formGroup.value;
+    const { className, teacher} = this.formGroup.value;
     if (this.formGroup.valid) {
       await this.classesService.create({
         name: className,
+        teacher,
         semesterId: this.data.semesterId,
       });
       this.dialogRef.close();

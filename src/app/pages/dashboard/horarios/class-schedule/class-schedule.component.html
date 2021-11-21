@@ -1,16 +1,20 @@
 <section>
     <h1 class="fw-bold">Olá, Fulano!</h1>
     <div class="d-flex align-items-center justify-content-between mb-5">
-        <div>
+        <div class="d-flex align-items-center">
             <h2 class="mb-0">Horários</h2>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Favorite food</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field> -->
+
+            <form [formGroup]="formGroup">
+                <mat-form-field class="w-100 ms-3" appearance="legacy">
+                    <mat-label>Selecionar semestre</mat-label>
+                    <select class="w-100" matNativeControl formControlName="selectedSemesterId" required>
+                        <option *ngFor="let semester of semesters" [value]="semester?.id">
+                            {{semester?.year}} | {{semester?.semester}}
+                        </option>
+                    </select>
+                </mat-form-field>
+            </form>
+
         </div>
 
         <button mat-button color="accent" (click)="openDialog()">
@@ -18,16 +22,16 @@
         </button>
     </div>
 
-    <div *ngFor="let classSchedule of classesSchedule" class="class-row row align-items-center p-3 rounded mb-3">
+    <div *ngFor="let data of classes" class="class-row row align-items-center p-3 rounded mb-3">
         <div class="col-3">
-            <p class="text-black mb-0 fw-bold">{{getDate(classSchedule.date)}}</p>
-            <p class="text-gray mb-0"> às {{getHour(classSchedule.date)}}</p>
+            <p class="text-black mb-0 fw-bold">{{getDate(data.date)}}</p>
+            <p class="text-gray mb-0"> às {{getHour(data.date)}}</p>
         </div>
         <div class="col">
-            <p class="text-black mb-0">Nome do progessor aqui</p>
-            <p *ngIf="classSchedule.class" class="text-gray mb-0">{{classSchedule.class.name}}</p>
+            <p *ngIf="data.class" class="text-black mb-0">{{data.class.teacher}}</p>
+            <p *ngIf="data.class" class="text-gray mb-0">{{data.class.name}}</p>
         </div>
-        <div class="col-2">
+        <div class="col-2 text-end">
             <img src="https://picsum.photos/200/300" alt="Avatar">
         </div>
     </div>

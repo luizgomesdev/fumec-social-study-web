@@ -34,6 +34,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { AuthService } from './shared/services/auth.service';
 import { ClassScheduleComponent } from './pages/dashboard/horarios/class-schedule/class-schedule.component';
 import { AddClasseScheduleComponent } from './components/forms/add-classe-schedule/add-classe-schedule.component';
+
 @NgModule({
   declarations: [
     AppComponent,

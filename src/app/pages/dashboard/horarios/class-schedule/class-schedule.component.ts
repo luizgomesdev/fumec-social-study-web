@@ -32,6 +32,10 @@ export class ClassScheduleComponent implements OnInit {
     this.initForm({ selectedSemesterId: '' });
 
     this.classesSchedule = await this.classScheduleService.findAll();
+    this.classesSchedule.sort(
+      ({ date: ADate }: any, { date: BDate }: any) =>
+        BDate.toDate() - ADate.toDate()
+    );
 
     for (const classSchedule of this.classesSchedule) {
       if (classSchedule.semester) {
@@ -45,7 +49,6 @@ export class ClassScheduleComponent implements OnInit {
     this.formGroup
       .get('selectedSemesterId')
       ?.valueChanges.subscribe(async (value) => {
-        console.log(value)
         this.classes = this.classesSchedule.filter(
           (data) => data.semester?.id === value
         );
@@ -61,11 +64,11 @@ export class ClassScheduleComponent implements OnInit {
   }
 
   getDate(date: any) {
-    return format(date.seconds, "dd 'de' MMMM", { locale: ptBR });
+    return format(date.toDate(), "dd 'de' MMMM", { locale: ptBR });
   }
 
   getHour(date: any) {
-    return format(date.seconds, 'HH:mm', { locale: ptBR });
+    return format(date.toDate(), 'HH:mm', { locale: ptBR });
   }
 
   openDialog() {

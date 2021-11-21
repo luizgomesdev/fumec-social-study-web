@@ -30,7 +30,6 @@ export class ListSemestersComponent implements OnInit {
   }
 
   openDialog() {
-    console.log(this.semesters);
     const ref = this.dialog.open(AddSemesterComponent);
     ref
       .afterClosed()

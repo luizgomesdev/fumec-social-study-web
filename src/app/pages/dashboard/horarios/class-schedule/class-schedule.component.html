@@ -4,7 +4,7 @@
         <div class="d-flex align-items-center">
             <h2 class="mb-0">Horários</h2>
 
-            <form [formGroup]="formGroup">
+            <form *ngIf="semesters" [formGroup]="formGroup">
                 <mat-form-field class="w-100 ms-3" appearance="legacy">
                     <mat-label>Selecionar semestre</mat-label>
                     <select class="w-100" matNativeControl formControlName="selectedSemesterId" required>

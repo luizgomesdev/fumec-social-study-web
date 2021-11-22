@@ -3,7 +3,7 @@
   <div class="d-flex align-items-center justify-content-between mb-5">
     <h2 class="mb-0">Selecione o semestre</h2>
     <button mat-button color="accent" (click)="openDialog()">
-      Adicionar semestre <mat-icon>chevron_right</mat-icon>
+      Semestres <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
   <div *ngFor="let semester of semesters" class="semester-row row align-items-center shadow p-3 rounded mb-3" (click)="goToClasses(semester.id)">

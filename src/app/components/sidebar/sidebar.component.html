@@ -3,21 +3,25 @@
     <img src="assets/logo.svg" alt="Logo">
   </a>
   <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
+  <ul class="nav flex-column mb-auto">
     <li class="nav-item">
-      <a type="button" class="nav-link active" aria-current="page" routerLink="/dashboard">
-
-        Home
+      <a type="button" class="nav-link" aria-current="page" routerLink="/dashboard/inicio" [routerLinkActive]="'active'">
+        <mat-icon class="me-3">roofing</mat-icon> Home
       </a>
     </li>
-    <li>
-      <a class="nav-link link-dark" aria-current="page" routerLink="/dashboard/horarios">
-        Horários
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" routerLink="/dashboard/horarios" [routerLinkActive]="'active'">
+        <mat-icon class="me-3">alarm</mat-icon> Horários
       </a>
     </li>
-    <li>
-      <a class="nav-link link-dark" aria-current="page" routerLink="/dashboard/materias">
-        Materias
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" routerLink="/dashboard/materias" [routerLinkActive]="'active'">
+        <mat-icon class="me-3">bookmark_border</mat-icon> Materias
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" routerLink="/dashboard/perfil" [routerLinkActive]="'active'">
+        <mat-icon class="me-3">person_outline</mat-icon> Perfil
       </a>
     </li>
   </ul>

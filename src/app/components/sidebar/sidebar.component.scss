@@ -1,4 +1,24 @@
 .sidebar {
   width: 256px;
   border-radius: 0 2rem 2rem 0;
+  .nav {
+    margin: 0;
+    padding: 0;
+    .nav-item {
+      list-style: none;
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        padding: 0.5rem 0;
+        color: #191919;
+
+        &.active {
+          color: #445884;
+        }
+      }
+    }
+  }
 }

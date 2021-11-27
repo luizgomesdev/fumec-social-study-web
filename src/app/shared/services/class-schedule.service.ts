@@ -26,7 +26,7 @@ export class ClassScheduleService {
   ) {
     this.itemsCollection = afs.collection<ClassSchedule>('class-schedule');
     this.items = this.itemsCollection.valueChanges();
-    this.userId = this.authService.getCurrentUser().uid;
+    this.userId = this.authService.user.uid;
   }
 
   async create(data: Partial<ClassSchedule>) {
@@ -41,22 +41,28 @@ export class ClassScheduleService {
   }
 
   async findAll(): Promise<ClassSchedule[]> {
+    let result: ClassSchedule[] = [];
     const { docs } = await this.itemsCollection.ref
       .where('userId', '==', this.userId)
       .get();
 
-    return Promise.all(
-      docs.map(async (doc) => {
+    for (const doc of docs) {
+      try {
         const data = doc.data();
+
         const classe = await this.classesService.findOne(data.classId);
         const semester = await this.semesterService.findOne(data.semesterId);
 
-        return {
-          ...data,
-          class: classe,
-          semester,
-        };
-      })
-    );
+        if (classe && semester) {
+          result.push({
+            ...data,
+            class: classe,
+            semester,
+          });
+        }
+      } catch (error) {}
+    }
+
+    return result;
   }
 }

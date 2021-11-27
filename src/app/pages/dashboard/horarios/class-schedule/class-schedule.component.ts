@@ -1,3 +1,5 @@
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from './../../../../shared/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Semester } from 'src/app/shared/entities/semesters.entity';
 import { ClassSchedule } from 'src/app/shared/entities/class-schedule.entity';
@@ -18,19 +20,21 @@ export class ClassScheduleComponent implements OnInit {
   classesSchedule!: ClassSchedule[];
   classes!: ClassSchedule[];
   semesters: Semester[] = [];
+  displayName!: string | null;
 
   constructor(
     public dialog: MatDialog,
-    public classScheduleService: ClassScheduleService
+    public classScheduleService: ClassScheduleService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.init();
+    this.initForm({ selectedSemesterId: '' });
+    this.displayName = this.authService.user.displayName;
+    this.initData();
   }
 
-  async init() {
-    this.initForm({ selectedSemesterId: '' });
-
+  async initData() {
     this.classesSchedule = await this.classScheduleService.findAll();
     this.classesSchedule.sort(
       ({ date: ADate }: any, { date: BDate }: any) =>
@@ -63,6 +67,29 @@ export class ClassScheduleComponent implements OnInit {
     });
   }
 
+  async updateData() {
+    this.semesters = [];
+    this.classesSchedule = await this.classScheduleService.findAll();
+    this.classesSchedule.sort(
+      ({ date: ADate }: any, { date: BDate }: any) =>
+        BDate.toDate() - ADate.toDate()
+    );
+
+    for (const classSchedule of this.classesSchedule) {
+      if (classSchedule.semester) {
+        const index = this.semesters.findIndex(
+          (value) => value.id === classSchedule.semester?.id
+        );
+        if (index == -1) this.semesters.push(classSchedule.semester);
+      }
+    }
+
+    this.classes = this.classesSchedule.filter(
+      (data) =>
+        data.semester?.id === this.formGroup.get('selectedSemesterId')?.value
+    );
+  }
+
   getDate(date: any) {
     return format(date.toDate(), "dd 'de' MMMM", { locale: ptBR });
   }
@@ -73,6 +100,6 @@ export class ClassScheduleComponent implements OnInit {
 
   openDialog() {
     const ref = this.dialog.open(AddClasseScheduleComponent);
-    ref.afterClosed().subscribe(async (result) => await this.init());
+    ref.afterClosed().subscribe(async (result) => await this.updateData());
   }
 }

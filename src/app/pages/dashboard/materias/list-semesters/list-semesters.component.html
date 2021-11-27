@@ -1,9 +1,9 @@
 <section>
-  <h1 class="fw-bold">Olá, Fulano!</h1>
+  <h1 class="fw-bold">Olá, {{displayName}}</h1>
   <div class="d-flex align-items-center justify-content-between mb-5">
     <h2 class="mb-0">Selecione o semestre</h2>
     <button mat-button color="accent" (click)="openDialog()">
-      Semestres <mat-icon>chevron_right</mat-icon>
+      Adicionar semestres <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
   <div *ngFor="let semester of semesters" class="semester-row row align-items-center shadow p-3 rounded mb-3" (click)="goToClasses(semester.id)">

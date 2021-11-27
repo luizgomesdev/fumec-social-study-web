@@ -24,7 +24,7 @@ import { AddSemesterComponent } from './components/forms/add-semester/add-semest
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HorariosComponent } from './pages/dashboard/horarios/horarios.component';
-import { InicioComponent } from './pages/dashboard/inicio/inicio.component';
+
 import { ListClassesComponent } from './pages/dashboard/materias/list-classes/list-classes.component';
 import { ListSemestersComponent } from './pages/dashboard/materias/list-semesters/list-semesters.component';
 import { MateriasComponent } from './pages/dashboard/materias/materias.component';
@@ -44,7 +44,6 @@ import { ProfileComponent } from './pages/dashboard/profile/profile.component';
     SignUpComponent,
     SidebarComponent,
     MateriasComponent,
-    InicioComponent,
     AddSemesterComponent,
     ListClassesComponent,
     ListSemestersComponent,

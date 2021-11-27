@@ -1,6 +1,9 @@
 .sidebar {
   width: 256px;
+  min-height: 100vh;
+  height: 100%;
   border-radius: 0 2rem 2rem 0;
+  overflow: hidden;
   .nav {
     margin: 0;
     padding: 0;

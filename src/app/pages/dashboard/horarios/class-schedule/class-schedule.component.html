@@ -1,11 +1,19 @@
 <section>
-    <h1 class="fw-bold">Olá, Fulano!</h1>
-    <div class="d-flex align-items-center justify-content-between mb-5">
+    <h1 class="fw-bold">Olá, {{displayName}}</h1>
+    <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
             <h2 class="mb-0">Horários</h2>
+        </div>
 
+        <button mat-button color="accent" (click)="openDialog()">
+            Adicionar aula <mat-icon>chevron_right</mat-icon>
+        </button>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-2">
             <form *ngIf="semesters" [formGroup]="formGroup">
-                <mat-form-field class="w-100 ms-3" appearance="legacy">
+                <mat-form-field class="w-100" appearance="legacy">
                     <mat-label>Selecionar semestre</mat-label>
                     <select class="w-100" matNativeControl formControlName="selectedSemesterId" required>
                         <option *ngFor="let semester of semesters" [value]="semester?.id">
@@ -14,12 +22,7 @@
                     </select>
                 </mat-form-field>
             </form>
-
         </div>
-
-        <button mat-button color="accent" (click)="openDialog()">
-            Adicionar aula <mat-icon>chevron_right</mat-icon>
-        </button>
     </div>
 
     <div *ngFor="let data of classes" class="class-row row align-items-center p-3 rounded mb-3">
@@ -28,8 +31,8 @@
             <p class="text-gray mb-0"> às {{getHour(data.date)}}</p>
         </div>
         <div class="col">
-            <p *ngIf="data.class" class="text-black mb-0">{{data.class.teacher}}</p>
-            <p *ngIf="data.class" class="text-gray mb-0">{{data.class.name}}</p>
+            <p *ngIf="data.class" class="text-black mb-0">{{data.class.name}}</p>
+            <p *ngIf="data.class" class="text-gray mb-0">{{data.class.teacher}}</p>
         </div>
         <div class="col-2 text-end">
             <img src="https://picsum.photos/200/300" alt="Avatar">

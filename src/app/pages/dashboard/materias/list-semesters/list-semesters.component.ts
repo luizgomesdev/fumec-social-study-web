@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { AddSemesterComponent } from 'src/app/components/forms/add-semester/add-semester.component';
 import { SemesterService } from 'src/app/shared/services/semester.service';
@@ -12,10 +13,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListSemestersComponent implements OnInit {
   semesters!: Semester[];
+  displayName!: string | null;
 
   constructor(
     public dialog: MatDialog,
     private readonly semesterService: SemesterService,
+    private readonly authService: AuthService,
     private readonly router: Router
   ) {}
 
@@ -23,6 +26,8 @@ export class ListSemestersComponent implements OnInit {
     (async () => {
       this.semesters = await this.getSemesters();
     })();
+
+    this.displayName = this.authService.user.displayName;
   }
 
   async getSemesters() {

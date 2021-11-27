@@ -15,7 +15,7 @@ import { AuthService } from './auth.service';
 export class SemesterService {
   private itemsCollection: AngularFirestoreCollection<Semester>;
   items: Observable<Semester[]>;
-  userId: string = this.authService.getCurrentUser().uid;
+  userId: string = this.authService.user.uid;
 
   constructor(private afs: AngularFirestore, public authService: AuthService) {
     this.itemsCollection = afs.collection<Semester>('semesters');
@@ -28,7 +28,7 @@ export class SemesterService {
       id: uuid.v4(),
       createdAt: new Date(),
       updatedAt: new Date(),
-      userId: this.authService.getCurrentUser().uid,
+      userId: this.authService.user.uid,
     });
   }
 

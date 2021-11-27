@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { AddClasseComponent } from './../../../../components/forms/add-classe/add-classe.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,15 +17,18 @@ export class ListClassesComponent implements OnInit {
   @Input() semesterId!: string;
   semester!: Semester | null;
   classes!: Classes[];
+  displayName!: string | null;
 
   constructor(
     public dialog: MatDialog,
     private readonly semesterService: SemesterService,
-    private readonly classesService: ClassesService
+    private readonly classesService: ClassesService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
     (async () => this.init())();
+    this.displayName = this.authService.user.displayName;
   }
 
   async init() {

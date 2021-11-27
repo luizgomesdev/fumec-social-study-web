@@ -1,14 +1,13 @@
 .wrapper {
-    display: flex;
-  
-    height: 100vh;
-    max-height: 100vh;
-  
-    overflow-x: hidden;
-  
-    .content {
-      width: 100%;
-  
-    }
+  display: flex;
+
+  height: 100vh;
+  max-height: 100vh;
+
+  overflow-x: hidden;
+
+  .content {
+    width: 100%;
+    overflow-y: auto;
   }
-  
+}

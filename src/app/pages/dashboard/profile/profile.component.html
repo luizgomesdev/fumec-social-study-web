@@ -1,7 +1,56 @@
 <main class="wrapper">
-    <app-sidebar></app-sidebar>
-    <div class="content p-5">
-      
-    </div>
-  </main>
-  
+  <app-sidebar></app-sidebar>
+  <div class="content p-5">
+    <section>
+      <h1 class="fw-bold">Olá, {{displayName}}</h1>
+      <form class="mb-3" [formGroup]="formGroup" (ngSubmit)="update()">
+
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field class="w-100" appearance="standard">
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" placeholder="Nome" formControlName="displayName">
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field class="w-100" appearance="standard">
+              <mat-label>Curso</mat-label>
+              <input matInput type="text" placeholder="Curso" formControlName="course">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field class="w-100" appearance="standard">
+              <mat-label>E-mail</mat-label>
+              <input matInput type="text" placeholder="E-mail" formControlName="email">
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field class="w-100" appearance="standard">
+              <mat-label>Contato</mat-label>
+              <input matInput type="text" placeholder="Contato" formControlName="phoneNumber">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field class="w-100" appearance="standard">
+              <mat-label>Senha</mat-label>
+              <input matInput type="text" placeholder="Senha" formControlName="password">
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field class="w-100" appearance="standard">
+              <mat-label>Confirmar Senha</mat-label>
+              <input matInput type="text" placeholder="Confirmar Senha" formControlName="confirmPassword">
+            </mat-form-field>
+          </div>
+        </div>
+        <button class="w-50 float-end" mat-raised-button color="primary">Salvar</button>
+      </form>
+    </section>
+  </div>
+</main>
